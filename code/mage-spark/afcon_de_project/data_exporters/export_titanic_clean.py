@@ -1,29 +1,16 @@
-from mage_ai.settings.repo import get_repo_path
-from mage_ai.io.config import ConfigFileLoader
-from mage_ai.io.google_cloud_storage import GoogleCloudStorage
+from mage_ai.io.file import FileIO
 from pandas import DataFrame
-from os import path
 
 if 'data_exporter' not in globals():
     from mage_ai.data_preparation.decorators import data_exporter
 
 
 @data_exporter
-def export_data_to_google_cloud_storage(df: DataFrame, **kwargs) -> None:
+def export_data_to_file(df: DataFrame, **kwargs) -> None:
     """
-    Template for exporting data to a Google Cloud Storage bucket.
-    Specify your configuration settings in 'io_config.yaml'.
+    Template for exporting data to filesystem.
 
-    Docs: https://docs.mage.ai/design/data-loading#googlecloudstorage
+    Docs: https://docs.mage.ai/design/data-loading#example-loading-data-from-a-file
     """
-    config_path = path.join(get_repo_path(), 'io_config.yaml')
-    config_profile = 'default'
-
-    bucket_name = 'cloud_bucket_dbt'
-    object_key = 'titantic.csv'
-
-    GoogleCloudStorage.with_config(ConfigFileLoader(config_path, config_profile)).export(
-        df,
-        bucket_name,
-        object_key,
-    )
+    filepath = 'titanic_clean.csv'
+    FileIO().export(df, filepath)
