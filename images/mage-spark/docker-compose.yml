@@ -1,0 +1,23 @@
+version: '3'
+services:
+  magic:
+    image: mageai/mageai:latest
+    command: mage start data_engineering_afcon_2023
+    env_file:
+      - .env
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      USER_CODE_PATH: /home/src/${PROJECT_NAME}
+      PROJECT_NAME: ${PROJECT_NAME}
+      SPARK_MASTER_HOST: ${SPARK_MASTER_HOST}
+      PROJECT_ID: ${PROJECT_ID}
+      DATASET: ${DATASET}
+      BUCKET_NAME: ${BUCKET_NAME}
+    ports:
+      - 6789:6789
+    volumes:
+      - /home/abdol/AFCON_2023_DE_Stats/mage:/home/src/
+      - /home/abdol/keys/afcon_project/my-creds.json:/home/src/my-creds.json
+    restart: on-failure:5

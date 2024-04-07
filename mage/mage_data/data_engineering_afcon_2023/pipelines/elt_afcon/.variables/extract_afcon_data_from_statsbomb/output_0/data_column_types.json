@@ -1,0 +1,1 @@
+{"competition_id": "int64", "season_id": "int64", "country_name": "str", "competition_name": "str", "competition_gender": "str", "competition_youth": "bool", "competition_international": "bool", "season_name": "str", "match_updated": "str", "match_updated_360": "str", "match_available_360": "str", "match_available": "str", "source": "str"}

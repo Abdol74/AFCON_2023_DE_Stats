@@ -21,28 +21,27 @@ emr_config:
 
 spark_config:
   # Application name
-  app_name: 'test_spark'
+  app_name: 'spark_project'
   # Master URL to connect to
   # e.g., spark_master: 'spark://host:port', or spark_master: 'yarn'
-  spark_master: 'spark://de-zoomcamp.europe-west1-b.c.primeval-legacy-412013.internal:7077'
+  spark_master: 'local'
   # Executor environment variables
   # e.g., executor_env: {'PYTHONPATH': '/home/path'}
   executor_env: {}
   # Jar files to be uploaded to the cluster and added to the classpath
   # e.g., spark_jars: ['/home/path/example1.jar']
-  spark_jars: ['/home/src/gcp_jars/gcs-connector-hadoop3-2.2.5.jar', '/home/src/gcp_jars/spark-3.3-bigquery-0.36.1.jar']
+  spark_jars: []
   # Path where Spark is installed on worker nodes
   # e.g. spark_home: '/usr/lib/spark'
-  spark_home: ''
+  spark_home:
   # List of key-value pairs to be set in SparkConf
   # e.g., others: {'spark.executor.memory': '4g', 'spark.executor.cores': '2'}
-  others: {}
+  others: {'spark.executor.memory': '4g', 'spark.executor.cores': '2'}
   # Whether to create custom SparkSession via code and set in kwargs['context']
   use_custom_session: true
   # The variable name to set in kwargs['context'],
   # e.g. kwargs['context']['spark'] = spark_session
   custom_session_var_name: 'spark'
-
 
 notification_config:
   alert_on:
