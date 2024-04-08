@@ -1,1 +1,2 @@
 {"operation": "create", "resource": {"type": "pipeline", "uuid": "elt_afcon"}, "timestamp": 1712453794, "user": null}
+{"operation": "create", "resource": {"type": "pipeline", "uuid": "transform_and_dwh_modeling_afcon"}, "timestamp": 1712522120, "user": null}

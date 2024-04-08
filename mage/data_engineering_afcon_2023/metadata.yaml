@@ -37,11 +37,13 @@ spark_config:
   # List of key-value pairs to be set in SparkConf
   # e.g., others: {'spark.executor.memory': '4g', 'spark.executor.cores': '2'}
   others: {}
-  # Whether to create custom SparkSession via code and set in kwargs['context']
+  #Whether to create custom SparkSession via code and set in kwargs['context']
   use_custom_session: true
+  
   # The variable name to set in kwargs['context'],
   # e.g. kwargs['context']['spark'] = spark_session
   custom_session_var_name: 'spark'
+ 
 
 notification_config:
   alert_on:
@@ -55,5 +57,5 @@ project_uuid: ce18159a80d6431aa6c47e05ff1b584a
 help_improve_mage: true
 
 
-
 run_pipeline_in_one_process: true
+# cache_block_output_in_memory: true
