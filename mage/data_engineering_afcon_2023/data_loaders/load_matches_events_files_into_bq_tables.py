@@ -234,41 +234,46 @@ def load_from_google_cloud_storage(*args, **kwargs):
     spark = kwargs['spark']
     
 
-    ###########################################
-    matches_file_name = "acfon_matches.parquet"
-    events_file_name = "match_events.parquet"
-    ##########################################
-    matches_df = spark.read.parquet("gs://{}/{}".format(bucket_name, matches_file_name))
-    events_df = spark.read.parquet("gs://{}/{}".format(bucket_name, events_file_name))
-    ################################################################################
-    matches_df.registerTempTable("Matches")
-    events_df.registerTempTable("events")
-    ################################################################################
+    # ###########################################
+    # matches_file_name = "acfon_matches.parquet"
+    # events_file_name = "match_events.parquet"
+    # ##########################################
+    # matches_df = spark.read.parquet("gs://{}/{}".format(bucket_name, matches_file_name))
+    # events_df = spark.read.parquet("gs://{}/{}".format(bucket_name, events_file_name))
+    # ################################################################################
+    # matches_df.registerTempTable("Matches")
+    # events_df.registerTempTable("events")
+    # ################################################################################
 
 
-    #### CALLING FUNCTION TO CREATE TEAM DIMENSION #######
-    team_dim = create_team_dimension(spark, events_df)
+    # #### CALLING FUNCTION TO CREATE TEAM DIMENSION #######
+    # team_dim = create_team_dimension(spark, events_df)
 
-    write_dataframe_into_bigquery(team_dim, 'team_dim')
-    ##### CALLING FUNCTION TO CREATE STADIUM DIMENSION #####
+    # write_dataframe_into_bigquery(team_dim, 'team_dim')
+    # ##### CALLING FUNCTION TO CREATE STADIUM DIMENSION #####
 
-    stadium_dim = create_stadium_dimension(spark)
+    # stadium_dim = create_stadium_dimension(spark)
 
-    write_dataframe_into_bigquery(stadium_dim, 'stadium_dim')
-    ##### CALLING FUNCTION TO CREATE REFEREE DIMENSION ####
+    # write_dataframe_into_bigquery(stadium_dim, 'stadium_dim')
+    # ##### CALLING FUNCTION TO CREATE REFEREE DIMENSION ####
 
-    referee_dim = create_referee_dimension(spark)
+    # referee_dim = create_referee_dimension(spark)
 
-    write_dataframe_into_bigquery(referee_dim, 'referee_dim')
-    #### CALLING FUNCTION TO CREATE PLAYER DIMENSION ####
+    # write_dataframe_into_bigquery(referee_dim, 'referee_dim')
 
-    player_dim = create_player_dimension(spark)
+    # #### CALLING FUNCTION TO CREATE MANAGER DIMENSION
+    # manager_dim = create_manager_dimension(spark)
+    # write_dataframe_into_bigquery(manager_dim, 'manager_dim')
+
+    # #### CALLING FUNCTION TO CREATE PLAYER DIMENSION ####
+
+    # player_dim = create_player_dimension(spark)
     
-    write_dataframe_into_bigquery(player_dim, 'player_dim')
-    ### CALL FUNCTION TO CREATE EVENT FACT TABLE
-    event_fact = create_event_fact(spark, events_df, team_dim)
+    # write_dataframe_into_bigquery(player_dim, 'player_dim')
+    # ### CALL FUNCTION TO CREATE EVENT FACT TABLE
+    # event_fact = create_event_fact(spark, events_df, team_dim)
 
-    write_dataframe_into_bigquery(event_fact, 'event_fact')
+    # write_dataframe_into_bigquery(event_fact, 'event_fact')
 
 
     return {}

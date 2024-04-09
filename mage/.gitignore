@@ -165,4 +165,8 @@ docker-compose.override.yml
 node_modules
 .npmrc
 
+# Scratch files
+scratch*
+/mage_data*
+
 my-creds.json
