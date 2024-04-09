@@ -150,12 +150,7 @@ def transform_custom(*args, **kwargs):
         
     match_dim = matches_df.select(
                 'match_id',
-                'home_team_id',
-                'away_team_id',
-                'home_manager_id',
-                'away_manager_id',
-                'stadium_id',
-                'referee_id',
+                'match_date',
                 'match_week',
                 'kick_off',
                 'competition_stage'
@@ -165,8 +160,12 @@ def transform_custom(*args, **kwargs):
     match_fact = matches_df.select(
 
             'match_id',
-            'match_date',
-            'competition_stage',
+            'home_team_id',
+            'away_team_id',
+            'home_manager_id',
+            'away_manager_id',
+            'stadium_id',
+            'referee_id',
             'home_score',
             'away_score',
             'goals_scored',

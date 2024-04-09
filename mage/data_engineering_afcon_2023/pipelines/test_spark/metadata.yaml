@@ -1,36 +1,4 @@
-blocks:
-- all_upstream_blocks_executed: true
-  color: null
-  configuration: {}
-  downstream_blocks:
-  - spark_sesion
-  executor_config: null
-  executor_type: local_python
-  has_callback: false
-  language: python
-  name: test_load_spark
-  retry_config: null
-  status: executed
-  timeout: null
-  type: data_loader
-  upstream_blocks: []
-  uuid: test_load_spark
-- all_upstream_blocks_executed: true
-  color: blue
-  configuration: {}
-  downstream_blocks: []
-  executor_config: null
-  executor_type: local_python
-  has_callback: false
-  language: python
-  name: spark_sesion
-  retry_config: null
-  status: executed
-  timeout: null
-  type: custom
-  upstream_blocks:
-  - test_load_spark
-  uuid: spark_sesion
+blocks: []
 cache_block_output_in_memory: false
 callbacks: []
 concurrency_config: {}

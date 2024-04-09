@@ -10,6 +10,7 @@ if 'data_exporter' not in globals():
 
 
 
+
 @data_exporter
 def export_data_to_google_cloud_storage(dfs: list[DataFrame], **kwargs) -> None:
 
@@ -18,18 +19,20 @@ def export_data_to_google_cloud_storage(dfs: list[DataFrame], **kwargs) -> None:
 
 
     config_profile = 'default'
-    project_id = os.environ['PROJECT_ID']
+    project_id = 'data-engineering-afcon-2023'
     bucket_name = os.environ['BUCKET_NAME']
-    
+
 
     for df in dfs:
         print(df['source'][0])
+        print(type(df))
         if df['source'][0] == 'competitions':
             object_key = '{}.parquet'.format(df['source'][0])
             GoogleCloudStorage.with_config(ConfigFileLoader(config_path, config_profile)).export(
             df,
             bucket_name,
             object_key,)
+            
 
         elif df['source'][0] == 'acfon_matches':
 

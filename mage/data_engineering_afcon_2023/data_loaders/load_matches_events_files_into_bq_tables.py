@@ -20,6 +20,29 @@ bucket_name = os.environ['BUCKET_NAME']
 project_id = os.environ['PROJECT_ID']
 dataset_name = os.environ['DATASET']
 
+required_jars = [
+        "https://storage.googleapis.com/hadoop-lib/gcs/gcs-connector-hadoop3-latest.jar",
+        "https://storage.googleapis.com/spark-lib/bigquery/spark-3.5-bigquery-0.36.1.jar"
+    ]
+
+def create_spark_session(required_jars, kwargs):
+    spark = (
+        SparkSession.builder
+        .master("local")
+        .appName('afcon_trnsformation_and_modeling')
+        .config("spark.jars", ",".join(required_jars))
+        .config("temporaryGcsBucket", bucket_name)
+        .getOrCreate()
+    )
+
+    spark._jsc.hadoopConfiguration().set("google.cloud.auth.service.account.json.keyfile",
+                                        os.environ['GOOGLE_APPLICATION_CREDENTIALS'])
+
+
+    kwargs['context']['spark'] = spark
+
+    return kwargs
+
 def create_hash(player_id, match_id, team_id, event, timestamp):
   return f"{player_id}_{match_id}_{team_id}_{event}_{timestamp}"
 
@@ -214,14 +237,17 @@ def create_event_fact(spark, events_df, team_dim):
 
     return event_fact
 
-def write_dataframe_into_bigquery(df, table_name):
+def write_dataframe_into_bigquery(df, table_name, partitioned, partitioned_column):
     try:
-        df.write \
-          .mode("overwrite") \
-          .format("bigquery") \
-          .option("parentProject",project_id) \
-          .option("table", "{}.{}.{}".format(project_id, dataset_name, table_name)) \
-          .save()
+        if partitioned == True:
+            df.write.mode("overwrite").format("bigquery").option("rangePartitioningField", partitioned_column).option("rangePartitioningStart", 3920384).option("rangePartitioningEnd", 3923881).option("rangePartitioningInterval", 1).option("parentProject", project_id).option("table", "{}.{}.{}".format(project_id, dataset_name, table_name)).save()
+        else:
+            df.write \
+                .mode("overwrite") \
+                .format("bigquery") \
+                .option("parentProject", project_id) \
+                .option("table", "{}.{}.{}".format(project_id, dataset_name, table_name)) \
+                .save()
 
         print("DONE WRITING {} INTO {}".format(table_name, dataset_name))
 
@@ -231,49 +257,52 @@ def write_dataframe_into_bigquery(df, table_name):
 @data_loader
 def load_from_google_cloud_storage(*args, **kwargs):
 
-    spark = kwargs['spark']
+    kwargs = create_spark_session(required_jars, kwargs)
+
+    spark = kwargs['context']['spark']
     
 
     # ###########################################
-    # matches_file_name = "acfon_matches.parquet"
-    # events_file_name = "match_events.parquet"
+    matches_file_name = "acfon_matches.parquet"
+    events_file_name = "match_events.parquet"
     # ##########################################
-    # matches_df = spark.read.parquet("gs://{}/{}".format(bucket_name, matches_file_name))
-    # events_df = spark.read.parquet("gs://{}/{}".format(bucket_name, events_file_name))
+    matches_df = spark.read.parquet("gs://{}/{}".format(bucket_name, matches_file_name))
+    events_df = spark.read.parquet("gs://{}/{}".format(bucket_name, events_file_name))
     # ################################################################################
-    # matches_df.registerTempTable("Matches")
-    # events_df.registerTempTable("events")
+    matches_df.registerTempTable("Matches")
+    events_df.registerTempTable("events")
     # ################################################################################
 
 
-    # #### CALLING FUNCTION TO CREATE TEAM DIMENSION #######
-    # team_dim = create_team_dimension(spark, events_df)
+    #### CALLING FUNCTION TO CREATE TEAM DIMENSION #######
+    team_dim = create_team_dimension(spark, events_df)
 
-    # write_dataframe_into_bigquery(team_dim, 'team_dim')
+    # write_dataframe_into_bigquery(team_dim, 'team_dim',False, None)
     # ##### CALLING FUNCTION TO CREATE STADIUM DIMENSION #####
 
     # stadium_dim = create_stadium_dimension(spark)
 
-    # write_dataframe_into_bigquery(stadium_dim, 'stadium_dim')
+    # write_dataframe_into_bigquery(stadium_dim, 'stadium_dim', False, None)
     # ##### CALLING FUNCTION TO CREATE REFEREE DIMENSION ####
 
     # referee_dim = create_referee_dimension(spark)
 
-    # write_dataframe_into_bigquery(referee_dim, 'referee_dim')
+    # write_dataframe_into_bigquery(referee_dim, 'referee_dim', False, None)
 
     # #### CALLING FUNCTION TO CREATE MANAGER DIMENSION
     # manager_dim = create_manager_dimension(spark)
-    # write_dataframe_into_bigquery(manager_dim, 'manager_dim')
+    # write_dataframe_into_bigquery(manager_dim, 'manager_dim', False, None)
 
     # #### CALLING FUNCTION TO CREATE PLAYER DIMENSION ####
 
     # player_dim = create_player_dimension(spark)
     
-    # write_dataframe_into_bigquery(player_dim, 'player_dim')
-    # ### CALL FUNCTION TO CREATE EVENT FACT TABLE
-    # event_fact = create_event_fact(spark, events_df, team_dim)
+    # write_dataframe_into_bigquery(player_dim, 'player_dim', False, None)
 
-    # write_dataframe_into_bigquery(event_fact, 'event_fact')
+    ### CALL FUNCTION TO CREATE EVENT FACT TABLE
+    event_fact = create_event_fact(spark, events_df, team_dim)
+
+    write_dataframe_into_bigquery(event_fact, 'event_fact', True, 'match_id')
 
 
     return {}
