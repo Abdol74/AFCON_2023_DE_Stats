@@ -1,7 +1,7 @@
 version: 2
 
 sources:
-  - name: dwh_stg
+  - name: reporting_layer
     database: data-engineering-afcon-2023
     schema: afcon_events
 
