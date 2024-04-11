@@ -240,7 +240,19 @@ def create_event_fact(spark, events_df, team_dim):
 def write_dataframe_into_bigquery(df, table_name, partitioned, partitioned_column):
     try:
         if partitioned == True:
-            df.write.mode("overwrite").format("bigquery").option("rangePartitioningField", partitioned_column).option("rangePartitioningStart", 3920384).option("rangePartitioningEnd", 3923881).option("rangePartitioningInterval", 1).option("parentProject", project_id).option("table", "{}.{}.{}".format(project_id, dataset_name, table_name)).save()
+            
+            df.write \
+            .mode("overwrite") \
+            .format("bigquery") \
+            .option("temporaryGcsBucket",bucket_name) \
+            .option("parentProject", project_id) \
+            .option("partitionField", partitioned_column) \
+            .option("partitionRangeStart", 3920384) \
+            .option("partitionRangeEnd", 3923881) \
+            .option("partitionRangeInterval", 1) \
+            .option("spark.sql.sources.partitionOverwriteMode", "STATIC") \
+            .option("table", "{}.{}.{}".format(project_id, dataset_name, table_name)) \
+            .save()
         else:
             df.write \
                 .mode("overwrite") \
@@ -277,31 +289,32 @@ def load_from_google_cloud_storage(*args, **kwargs):
     #### CALLING FUNCTION TO CREATE TEAM DIMENSION #######
     team_dim = create_team_dimension(spark, events_df)
 
-    # write_dataframe_into_bigquery(team_dim, 'team_dim',False, None)
-    # ##### CALLING FUNCTION TO CREATE STADIUM DIMENSION #####
+    write_dataframe_into_bigquery(team_dim, 'team_dim',False, None)
+    ##### CALLING FUNCTION TO CREATE STADIUM DIMENSION #####
 
-    # stadium_dim = create_stadium_dimension(spark)
+    stadium_dim = create_stadium_dimension(spark)
 
-    # write_dataframe_into_bigquery(stadium_dim, 'stadium_dim', False, None)
-    # ##### CALLING FUNCTION TO CREATE REFEREE DIMENSION ####
+    write_dataframe_into_bigquery(stadium_dim, 'stadium_dim', False, None)
+    ##### CALLING FUNCTION TO CREATE REFEREE DIMENSION ####
 
-    # referee_dim = create_referee_dimension(spark)
+    referee_dim = create_referee_dimension(spark)
 
-    # write_dataframe_into_bigquery(referee_dim, 'referee_dim', False, None)
+    write_dataframe_into_bigquery(referee_dim, 'referee_dim', False, None)
 
-    # #### CALLING FUNCTION TO CREATE MANAGER DIMENSION
-    # manager_dim = create_manager_dimension(spark)
-    # write_dataframe_into_bigquery(manager_dim, 'manager_dim', False, None)
+    #### CALLING FUNCTION TO CREATE MANAGER DIMENSION
+    manager_dim = create_manager_dimension(spark)
+    write_dataframe_into_bigquery(manager_dim, 'manager_dim', False, None)
 
-    # #### CALLING FUNCTION TO CREATE PLAYER DIMENSION ####
+    #### CALLING FUNCTION TO CREATE PLAYER DIMENSION ####
 
-    # player_dim = create_player_dimension(spark)
+    player_dim = create_player_dimension(spark)
     
-    # write_dataframe_into_bigquery(player_dim, 'player_dim', False, None)
+    write_dataframe_into_bigquery(player_dim, 'player_dim', False, None)
 
     ### CALL FUNCTION TO CREATE EVENT FACT TABLE
     event_fact = create_event_fact(spark, events_df, team_dim)
 
+    
     write_dataframe_into_bigquery(event_fact, 'event_fact', True, 'match_id')
 
 

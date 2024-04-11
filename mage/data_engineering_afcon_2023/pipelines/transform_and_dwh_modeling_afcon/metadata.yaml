@@ -10,12 +10,12 @@ blocks:
   language: python
   name: Load_Matches_Events_files_into_bq_tables
   retry_config: null
-  status: executed
+  status: updated
   timeout: null
   type: data_loader
   upstream_blocks: []
   uuid: load_matches_events_files_into_bq_tables
-- all_upstream_blocks_executed: true
+- all_upstream_blocks_executed: false
   color: null
   configuration: {}
   downstream_blocks: []
