@@ -1,0 +1,17 @@
+version: 2
+
+sources:
+  - name: reporting_layer
+    database: data-engineering-afcon-2023
+    schema: afcon_events
+
+
+    tables:
+      - name: event_fact
+      - name: match_fact
+      - name: player_dim
+      - name: manager_dim
+      - name: match_dim
+      - name: referee_dim
+      - name: stadium_dim
+      - name: team_dim
