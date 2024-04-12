@@ -74,7 +74,12 @@ select
         M.home_score,
         M.away_score,
         M.goals_scored,
-        M.penalties_finished
+        M.penalties_finished,
+        CASE 
+            WHEN M.home_score > M.away_score THEN 'Win'
+            WHEN M.home_score < M.away_score THEN 'Loss'
+            ELSE 'Draw'
+        END AS match_result
 from 
 match_fact as M
 LEFT JOIN 
