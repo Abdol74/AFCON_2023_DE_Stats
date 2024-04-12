@@ -79,7 +79,7 @@ select
             WHEN M.home_score > M.away_score THEN 'Win'
             WHEN M.home_score < M.away_score THEN 'Loss'
             ELSE 'Draw'
-            END AS match_result
+        END AS match_result
 from 
 match_fact as M
 LEFT JOIN 
