@@ -7,27 +7,6 @@ Talented players catch the eyes of many European, Latin, and African managers   
 
 # Technology Stack
 
-## Google Cloud Platform (GCP)
-- **Compute Engine**: Hosting VM instance.
-- **Google Cloud Storage (Datalake)**: Where data lands.
-- **BigQuery (Datawarehouse)**: Where data is stored in dimensional modeling.
-- **Spark (Data Processing Layer)**: Local cluster on VM instance.
-
-## Mage
-- **Orchestration Tool**: Used for our data pipeline flow.
-
-## DBT (Data Build Tool)
-- **Reporting Layer**: Built in models.
-
-## Docker
-- **Containerization**: Wrapping Mage and Spark in containers.
-
-## Terraform (Infrastructure as Code - Iaas)
-- **Deployment**: Used to deploy all the needed resources on GCP.
-
-
-# Technology Stack
-
 - Google Cloud Platform (GCP)
     - **Compute Engine**: Hosting VM instance.
     - **Google Cloud Storage (Datalake)**: Where data lands.
@@ -38,10 +17,11 @@ Talented players catch the eyes of many European, Latin, and African managers   
     - **Orchestration Tool**: Used for our data pipeline flow.
 
 - DBT (Data Build Tool)
-- **Reporting Layer**: Built in models.
+    - **Reporting Layer**: Built in models.
 
 - Docker
     - **Containerization**: Wrapping Mage and Spark in containers.
 
-- Terraform (Infrastructure as Code - Iaas)
+- Terraform (Infrastructure as Code)
     - **Deployment**: Used to deploy all the needed resources on GCP.
+
