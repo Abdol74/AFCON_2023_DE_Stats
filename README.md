@@ -46,12 +46,14 @@ As shown in image our data flow consists of below section:
 ![alt text](image-2.png)
     - Utilizing Spark capabilities, we aim to transform raw data and address any issues encountered, ensuring its compatibility with the data warehouse model. We will establish three pipelines using PySpark, managing and scheduling their execution through Mage as our orchestration tool
 
-3. Data Storage: 
+3. Data Storage:
 
-![alt text]
-(image-3.png)
+![alt text](image-3.png)
 
     - After transforming the raw data using Spark pipelines, the transformed data will be loaded into tables structured according to the galaxy schema model in BigQuery. This galaxy schema model includes multiple interconnected fact and dimension tables designed to support efficient querying and analysis of the data (Details below). 
+
+
+
 
 4. Data Modeling:
     - After transforming and loading the data into BigQuery using Spark pipelines, we utilize the Data Build Tool (dbt) to combine or join the dimension tables with the fact tables. This process generates specific reporting tables in another schema within BigQuery. These reporting tables are optimized for querying and analysis, providing insights into various aspects of the data.
