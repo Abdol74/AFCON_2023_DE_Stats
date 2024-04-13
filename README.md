@@ -25,3 +25,9 @@ Talented players catch the eyes of many European, Latin, and African managers   
 - Terraform (Infrastructure as Code)
     - **Deployment**: Used to deploy all the needed resources on GCP.
 
+
+# Data Pipeline Flow
+
+![alt text](image.png)
+
+As shown in image our data flow consists of below section:
