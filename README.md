@@ -34,29 +34,33 @@ As shown in image our data flow consists of below section:
 
 1. Data Ingestion:
 
-![alt text](image-1.png)
     - Landing the raw data which fetched from statsbomb API into google cloud storage into 3 parquet format files.
         - types of files: 
             - file for all competitions that statsbomb captured.
             - file for all matches played in afcon 2023.
             - file for all events happend during the tournment.
 
+![alt text](image-1.png)
+
+
 2. Data Processing:
 
-![alt text](image-2.png)
     - Utilizing Spark capabilities, we aim to transform raw data and address any issues encountered, ensuring its compatibility with the data warehouse model. We will establish three pipelines using PySpark, managing and scheduling their execution through Mage as our orchestration tool
+
+![alt text](image-2.png)
+
 
 3. Data Storage:
 
+    - After transforming the raw data using Spark pipelines, the transformed data will be loaded into tables structured according to the galaxy schema model in BigQuery. This galaxy schema model includes multiple interconnected fact and dimension tables designed to support efficient querying and analysis of the data (Details below). 
+
 ![alt text](image-3.png)
-
-- After transforming the raw data using Spark pipelines, the transformed data will be loaded into tables structured according to the galaxy schema model in BigQuery. This galaxy schema model includes multiple interconnected fact and dimension tables designed to support efficient querying and analysis of the data (Details below). 
-
 
 
 
 4. Data Modeling:
     - After transforming and loading the data into BigQuery using Spark pipelines, we utilize the Data Build Tool (dbt) to combine or join the dimension tables with the fact tables. This process generates specific reporting tables in another schema within BigQuery. These reporting tables are optimized for querying and analysis, providing insights into various aspects of the data.
+
 
 5. Data Visualization:
     - After generating specific reporting tables in BigQuery using dbt, we leverage Google Looker Studio to provide insights and visualizations. Looker Studio allows us to create interactive dashboards and reports, enabling users to gain valuable insights from the data stored in BigQuery. Through Looker Studio, stakeholders can explore and analyze the data efficiently, facilitating data-driven decision-making processes.
