@@ -59,7 +59,7 @@ executor_config: {}
 executor_count: 1
 executor_type: null
 extensions: {}
-name: elt_afcon
+name: data_ingestion_afcon_raw_data_from_api
 notification_config: {}
 remote_variables_dir: null
 retry_config: {}
@@ -69,6 +69,6 @@ settings:
 spark_config: {}
 tags: []
 type: python
-uuid: elt_afcon
+uuid: data_ingestion_afcon_raw_data_from_api
 variables_dir: /home/src/mage_data/data_engineering_afcon_2023
 widgets: []
