@@ -50,7 +50,7 @@ As shown in image our data flow consists of below section:
 
 ![alt text](image-3.png)
 
-    - After transforming the raw data using Spark pipelines, the transformed data will be loaded into tables structured according to the galaxy schema model in BigQuery. This galaxy schema model includes multiple interconnected fact and dimension tables designed to support efficient querying and analysis of the data (Details below). 
+- After transforming the raw data using Spark pipelines, the transformed data will be loaded into tables structured according to the galaxy schema model in BigQuery. This galaxy schema model includes multiple interconnected fact and dimension tables designed to support efficient querying and analysis of the data (Details below). 
 
 
 
