@@ -1,1 +1,0 @@
-{"match_id": "int64", "match_date": "str", "kick_off": "str", "competition": "str", "season": "str", "home_team": "str", "away_team": "str", "home_score": "int64", "away_score": "int64", "match_week": "int64", "competition_stage": "str", "stadium": "str", "referee": "str", "home_managers": "str", "away_managers": "str", "source": "str"}
