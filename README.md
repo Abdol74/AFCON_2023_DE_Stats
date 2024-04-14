@@ -112,16 +112,16 @@ As shown in image our data flow consists of below section:
 - Create directory in your local machine called .ssh 
 - paste the private and public key you got them when create the VM instance
 - Create file called config and edit it with the next instructions:
-    Host "Name_of_vm_instance"
 
-    HostName "external_ip_of_vm_instance"
+    -   Host "Name_of_vm_instance"
 
-    User "your_user"
+    -   HostName "external_ip_of_vm_instance"
 
-    IdentityFile "path_to_your_public_key"
+    -    User "your_user"
+
+    -   IdentityFile "path_to_your_public_key"
 
 - connect to the vm instance using the host:
-
     ssh "Name_of_vm_instance"
 
 **5. Dealing with Terraform:**
