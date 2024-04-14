@@ -200,3 +200,11 @@ As shown in image our data flow consists of below section:
 
 
     ![alt text](resources/salah%20vs%20mane%201.PNG)
+
+    ![alt text](resources/mane%20vs%20salah%202.PNG)
+
+    ![alt text](resources/player_stats_visual_1.PNG)
+
+    ![alt text](resources/player_stats_visual_2.PNG)
+
+    ![alt text](resources/player_stats_visual_3.PNG)
