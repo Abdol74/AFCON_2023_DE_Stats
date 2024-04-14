@@ -29,7 +29,7 @@
 
 ### Data Pipeline Flow
 
-![alt text](image.png)
+![alt text](resources/image.png)
 
 As shown in image our data flow consists of below section:
 
@@ -42,15 +42,11 @@ As shown in image our data flow consists of below section:
 
 
 
-![alt text](image-1.png)
-
+![alt text](resources/image-1.png)
 
 **2. Data Processing**:
 
 -   Utilizing Spark capabilities, we aim to transform raw data and address any issues encountered, ensuring its compatibility with the data warehouse model. We will establish three pipelines using PySpark, managing and scheduling their execution through Mage as our orchestration tool.
-
-
-![alt text](image-2.png)
 
 
 **3. Data Storage**:
@@ -58,7 +54,7 @@ As shown in image our data flow consists of below section:
 - After transforming the raw data using Spark pipelines, the transformed data will be loaded into tables structured according to the galaxy schema model in BigQuery. This galaxy schema model includes multiple interconnected fact and dimension tables designed to support efficient querying and analysis of the data (Details below). 
 
 
-![alt text](image-3.png)
+![alt text](resources/image-3.png)
 
 
 
@@ -66,9 +62,9 @@ As shown in image our data flow consists of below section:
 
 -   After transforming and loading the data into BigQuery using Spark pipelines, we utilize the Data Build Tool (dbt) to combine or join the dimension tables with the fact tables. This process generates specific reporting tables in another schema within BigQuery. These reporting tables are optimized for querying and analysis, providing insights into various aspects of the data.
 
-![alt text](event_fact_reproting_dbt.PNG)
+![alt text](resources/event_fact_reproting_dbt.PNG)
 
-![alt text](match_fact_reporting.PNG)
+![alt text](resources/match_fact_reporting.PNG)
 
 
 
@@ -80,7 +76,7 @@ As shown in image our data flow consists of below section:
 
 ### Datawarehouse Modeling
 
-![alt text](datawarehouse_model_galaxy_schema.jpg)
+![alt text](resources/datawarehouse_model_galaxy_schema.jpg)
 
 
 - When analyzing the case, we discovered that we deal with different levels of granularity, namely the grain for events, matches, and players. Therefore, I decided to utilize the Galaxy Schema model. Unlike the Star Schema and Snowflake Schema, the Galaxy Schema employs multiple fact tables connected with shared normalized dimension tables. The Galaxy Schema can be likened to a star schema that is interlinked and fully normalized, thus avoiding any redundancy or inconsistency of data.
@@ -116,7 +112,6 @@ As shown in image our data flow consists of below section:
 - Create directory in your local machine called .ssh 
 - paste the private and public key you got them when create the VM instance
 - Create file called config and edit it with the next instructions:
-
     Host "Name_of_vm_instance"
 
     HostName "external_ip_of_vm_instance"
@@ -155,7 +150,7 @@ As shown in image our data flow consists of below section:
 
 - Go to the Mage interface: http://localhost:6789.
 
-![alt text](mage_workflow.PNG)
+![alt text](resources/mage_workflow.PNG)
 
 
 - As you can see, our workflow consists of 4 pipelines.
@@ -163,7 +158,7 @@ As shown in image our data flow consists of below section:
 - Simply navigate to the first pipeline named "data_ingestion_afcon_raw_data_from_api".
 - Click "run once" and the other pipelines will be triggered automatically.
 
-![alt text](mage_first_trigger_pipeline.PNG)
+![alt text](resources/mage_first_trigger_pipeline.PNG)
 
 
 - After 15 minutes, go to BigQuery and you'll discover that all dimensions and facts are populated with the data.
@@ -191,16 +186,16 @@ As shown in image our data flow consists of below section:
 
     - Here are the complete statistics for the total number of matches played, including total goals scored and top-scoring teams, among other metrics. 
 
-    ![alt text](match_visualization_1.PNG)
+    ![alt text](resources/match_visualization_1.PNG)
 
 
     - You can explore the comprehensive statistics for your preferred team by utilizing the filtration options.
 
-    ![alt text](egypt_visualization.PNG)
+    ![alt text](resources/egypt_visualization.PNG)
 
 
 
     - Utilizing the player dashboard filtration, you can compare the statistics of two or more players during the tournament. For instance, you can analyze the differences between SALAH and MANE.
 
 
-    ![alt text](<salah vs mane 1.PNG>)
+    ![alt text](resources/salah%20vs%20mane%201.PNG)
