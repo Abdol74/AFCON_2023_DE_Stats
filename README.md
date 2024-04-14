@@ -122,16 +122,17 @@ As shown in image our data flow consists of below section:
     -   IdentityFile "path_to_your_public_key"
 
 - connect to the vm instance using the host:
-    ssh "Name_of_vm_instance"
+
+    - ssh "Name_of_vm_instance"
 
 **5. Dealing with Terraform:**
 - Replace the value of the credentials variable with the path to your key in the variables.tf file. Then, execute the following commands:
 
-    cd terraform
+        cd terraform
 
-    terraform init
+        terraform init
 
-    terraform apply
+        terraform apply
 
 
 **6. Launch our mage-spark image:**
