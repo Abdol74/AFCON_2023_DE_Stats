@@ -175,6 +175,8 @@ As shown in image our data flow consists of below section:
 
 **8. Explore the Dashboard:**
 
+**When exploring the links to the dashboard, you may not find the visualizations of the data due to the expiration of the free tier and the deletion of all data from the tables. Please refer to the screenshot below for reference.**
+
  - We published 2 reports on Looker Studio to discover them:
 
     - Explore [Match Dashboard](https://lookerstudio.google.com/reporting/0ced8dfa-cf0e-4c69-ae6f-16703cfaca2c/page/KPfwD)
@@ -201,10 +203,14 @@ As shown in image our data flow consists of below section:
 
     ![alt text](resources/salah%20vs%20mane%201.PNG)
 
+
     ![alt text](resources/mane%20vs%20salah%202.PNG)
 
+    - The overall statistics of all players in tournment
     ![alt text](resources/player_stats_visual_1.PNG)
 
+
     ![alt text](resources/player_stats_visual_2.PNG)
+    
 
     ![alt text](resources/player_stats_visual_3.PNG)
